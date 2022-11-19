@@ -11,7 +11,7 @@ attractions=data["result"]["results"]
 attrdb = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="123321",
+    password="123321zz",
     database="taipeiattractions",
     charset="utf-8"
 )
