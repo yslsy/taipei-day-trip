@@ -1,5 +1,4 @@
 from flask import Flask,request,json,jsonify,render_template,redirect,session
-import math
 import mysql.connector
 app=Flask(__name__)
 app.config["JSON_AS_ASCII"]=False
@@ -154,4 +153,4 @@ def get_categories_list():
 
 
 
-app.run(port=3000)
+app.run(host='0.0.0.0',port=3000)
