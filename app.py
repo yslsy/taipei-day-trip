@@ -1,7 +1,17 @@
-from flask import *
+from flask import Flask,request,json,jsonify,render_template,redirect,session
+import mysql.connector
 app=Flask(__name__)
 app.config["JSON_AS_ASCII"]=False
 app.config["TEMPLATES_AUTO_RELOAD"]=True
+
+attrdb = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="123321zz",
+    database="taipeiattractions",
+    charset="utf-8"
+)
+cursor = attrdb.cursor()
 
 # Pages
 @app.route("/")
@@ -17,4 +27,119 @@ def booking():
 def thankyou():
 	return render_template("thankyou.html")
 
-app.run(port=3000)
+# 取得景點資料列表
+@app.route("/api/attractions", methods=["GET"])
+def get_attractions():
+	try:
+		page = request.args.get("page",0)
+		keyword = request.args.get("keyword","")
+		pagetwo = int(page)
+		next_page =  pagetwo + 1
+		num = (pagetwo*12)
+		sql = "SELECT * FROM attractions WHERE category = %s OR name LIKE CONCAT('%',%s,'%') ORDER BY id LIMIT %s,12" #
+		cursor.execute(sql, (keyword,keyword,num))
+		result = cursor.fetchall()
+		newresult=[]
+		for i in range(len(result)):
+			id = result[i][0]
+			name = result[i][1]
+			category = result[i][2]
+			description = result[i][3]
+			address = result[i][4]
+			transport = result[i][5]
+			mrt = result[i][6]
+			lat = result[i][7]
+			lng = result[i][8]
+			images = result[i][9]
+			newresult1 = {
+				"id":id,
+				"name":name,
+				"category":category,
+				"description":description,
+				"address":address,
+				"transport":transport,
+				"mrt":mrt,
+				"lat":float(lat),
+				"lng":float(lng),
+				"images":eval(images)
+			}
+			newresult.append(newresult1)
+
+		# 查詢nextpage
+		sql = "SELECT * FROM attractions WHERE category = %s OR name LIKE CONCAT('%',%s,'%') ORDER BY id LIMIT %s,1"
+		cursor.execute(sql, (keyword,keyword,num+12))
+		result = cursor.fetchall()
+		if result == []:
+			next_page = None
+
+	except Exception:
+		return jsonify({
+			"error":True,
+			"message":"伺服器內部錯誤"
+		}), 500
+
+	return jsonify({
+			"nextpage": next_page,
+			"data": newresult
+			})
+
+# 根據景點標號取得景點資料
+@app.route("/api/attraction/<int:attractionId>", methods=["GET"])
+def get_attractions_byid(attractionId):
+	sql = "SELECT * FROM attractions WHERE id = %s" 
+	cursor.execute(sql, (attractionId,))
+	result = cursor.fetchall()
+	print(result)
+	if result:
+		newresult = {
+			"id":result[0][0],
+			"name":result[0][1],
+			"category":result[0][2],
+			"description":result[0][3],
+			"address":result[0][4],
+			"transport":result[0][5],
+			"mrt":result[0][6],
+			"lat":float(result[0][7]),
+			"lng":float(result[0][8]),
+			"images":eval(result[0][9])
+		}
+		return jsonify({
+			"data":newresult
+		})
+
+	elif (attractionId==0 or attractionId>len(result)) :
+		return jsonify({
+			"error":True,
+			"message":"景點編號不正確"
+		}), 400
+
+	else:
+		return jsonify({
+			"error":True,
+			"message":"伺服器內部錯誤"
+		}), 500
+	
+
+# 取得景點分類名稱列表
+@app.route("/api/categories", methods=["GET"])
+def get_categories_list():
+	try:
+		sql = "SELECT DISTINCT category FROM attractions" 
+		cursor.execute(sql)
+		result = cursor.fetchall()
+		result1=[]
+		for i in range(len(result)):
+			item = result[i][0]
+			result1.append(item)
+	except Exception:
+		return jsonify({
+			"error":True,
+			"message":"伺服器內部錯誤"
+		}), 500
+	return jsonify({
+			"data": result1
+		})
+
+
+
+app.run(host='0.0.0.0',port=3000)
