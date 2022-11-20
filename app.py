@@ -59,8 +59,8 @@ def get_attractions():
 				"address":address,
 				"transport":transport,
 				"mrt":mrt,
-				"lat":lat,
-				"lng":lng,
+				"lat":float(lat),
+				"lng":float(lng),
 				"images":eval(images)
 			}
 			newresult.append(newresult1)
@@ -89,35 +89,23 @@ def get_attractions_byid(attractionId):
 	sql = "SELECT * FROM attractions WHERE id = %s" 
 	cursor.execute(sql, (attractionId,))
 	result = cursor.fetchall()
+	print(result)
 	if result:
-		newresult=[]
-		for i in range(len(result)):
-			id = result[i][0]
-			name = result[i][1]
-			category = result[i][2]
-			description = result[i][3]
-			address = result[i][4]
-			transport = result[i][5]
-			mrt = result[i][6]
-			lat = result[i][7]
-			lng = result[i][8]
-			images = result[i][9]
-			newresult1 = {
-				"id":id,
-				"name":name,
-				"category":category,
-				"description":description,
-				"address":address,
-				"transport":transport,
-				"mrt":mrt,
-				"lat":lat,
-				"lng":lng,
-				"images":eval(images)
-			}
-			newresult.append(newresult1)
+		newresult = {
+			"id":result[0][0],
+			"name":result[0][1],
+			"category":result[0][2],
+			"description":result[0][3],
+			"address":result[0][4],
+			"transport":result[0][5],
+			"mrt":result[0][6],
+			"lat":float(result[0][7]),
+			"lng":float(result[0][8]),
+			"images":eval(result[0][9])
+		}
 		return jsonify({
-				"data":newresult
-			})
+			"data":newresult
+		})
 
 	elif (attractionId==0 or attractionId>len(result)) :
 		return jsonify({
@@ -130,6 +118,7 @@ def get_attractions_byid(attractionId):
 			"error":True,
 			"message":"伺服器內部錯誤"
 		}), 500
+	
 
 # 取得景點分類名稱列表
 @app.route("/api/categories", methods=["GET"])
