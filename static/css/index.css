@@ -1,0 +1,296 @@
+*{
+  margin: 0;
+}
+body {
+  width: 100%;
+  height: 100%;
+}
+.outtoptitle{
+  width: 100%;
+  margin: 0px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.toptitle{
+  width: 1200px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.theme{
+  font-family:'Noto Sans TC';
+  font-weight: 700;
+  font-size: 30px;
+  color: #448899;
+  margin-right: auto;
+}
+.booking{
+  font-family: "Noto Sans TC";
+  font-weight: 500;
+  font-size: 16px;
+  color: #666666;
+  margin-right: 5px;
+}
+.signin_signup{
+  font-family: "Noto Sans TC";
+  font-weight: 500;
+  font-size: 16px;
+  color: #666666;
+  margin-left: 5px;
+}
+.welcome{
+  display: flex;
+  justify-content: center;
+}
+.welcome_img{
+  margin: 0px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 260px;
+  background-image: url("../img/welcome.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top;
+}
+.welcome_text{
+  margin: 0px auto;
+  width: 1200px;
+  height: 150px;
+  display: grid;
+  grid-template-rows: 50px 50px 50px;
+}
+.welcometext1{
+  font-size: "Noto Sans TC";
+  font-weight: 700;
+  font-size: 28px;
+  color: #F8F8F8;
+}
+.welcometext2{
+  font-size: "Noto Sans TC";
+  font-weight: 700;
+  font-size: 16px;
+  color: #F8F8F8;
+  align-items: center;
+}
+.search_input{
+  background-color: #FFFFFF;
+  width: 400px;
+  border: 0;
+  border-radius: 5px 0 0 5px;
+  margin-right: 0px;
+  display: block;
+  float: left;
+  font-family: "Noto Sans TC";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 13px;
+  padding: 14px;
+}
+.search_button{
+  font-size:15px;
+  background-color: #448899;
+  width: 60px;
+  height: 46px;
+  border: 0;
+  border-radius: 0 5px 5px 0;
+  margin-left: 0px;
+  cursor:pointer;
+}
+/*景點分類搜尋*/
+.search_category{
+  width: 400px;
+  height: 162px;
+  background-color: #FFFFFF;
+  display: none;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: max-content;
+  z-index: 2;
+  border-radius: 5px;
+}
+.categoryItem{
+  display: flex;
+  height: 54px;
+}
+.categoryItemtext{
+  font-family: "Noto Sans TC";
+  font-weight: bold;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  padding: 15px;
+}
+.categoryItemtext:hover{
+  background-color: #E8E8E8;
+  border-radius: 5px;
+  width: 100px;
+  cursor:pointer;
+}
+.blockoff {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  content: " ";
+  background: rgba(0, 0, 0, 0);
+  display: none;
+}
+.iconsearch_img{
+  width: 30px;
+  height: 30px;
+}
+
+/*景點*/
+.main{
+  margin: 0 auto;
+  padding: 50px 25px 50px 25px;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: max-content;
+  gap: 40px;
+  padding-bottom: 104px;
+  font-size: 16px;
+}
+.allAttr{
+  border: 1px solid rgba(56, 56, 56, 0.322);
+  width: 100%;
+  height: 242px;
+  display: grid;
+  grid-template-rows: 80% 20%;
+  border-radius: 5px 5px 5px 5px;
+  font-size: "Noto Sans TC";
+}
+.imgName{
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+  border-radius: 5px 5px 5px 5px;
+  text-decoration:none;
+  position:relative;
+}
+.img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px 5px 0px 0px;
+  aspect-ratio:29/20;
+}
+.namebg{
+  width: 100%;
+  height: 24%;
+  background: rgba(0,0,0,0.6);
+  position:absolute;
+  bottom: 0px;
+  display: flex;
+  align-items: center;
+}
+.attrName{
+  font-size: 16px;
+  font-weight: 700;
+  color: #FFFFFF;
+  padding-left: 10px;
+}
+.attrTagbg{
+  background-color: #FFFFFF;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px 5px 5px 5px;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  font-weight: 5000;
+  font-size: 16px;
+  z-index: 1;
+}
+.mrt{
+  grid-area: 1/ 1/ 2 /2;
+  display: flex;
+  align-items: center; 
+  justify-content: left;
+  padding: 0px 10px 0px 10px;
+  color: #757575;
+}
+.category{
+  grid-area: 1/ 2/ 2/3;
+  display: flex;
+  align-items: center; 
+  justify-content: right;
+  padding: 0px 10px 0px 10px;
+  color: #757575;
+}
+footer{
+  height: 104px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #757575;
+  color: #FFFFFF;
+  font-family: "Noto Sans TC";
+  font-weight: 700;
+  font-size: 16px;
+}
+@media(max-width: 1200px) {
+  .outtoptitle {
+    width: 80%;
+  }
+  .toptitle{
+    padding: 5px;
+  }
+  .welcome_text{
+    width: 80%;
+  }
+  .main {
+    width: 80%;
+  }
+}
+@media(max-width: 600px) {
+  .outtoptitle {
+    width: auto;
+  }
+  .toptitle{
+    width: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 5px;
+  }
+  .welcome_img{
+    width: 600px;
+    background-position: right bottom;
+  }
+  .welcome_text{
+    margin: 0px auto;
+    width: 90%;
+    height: 150px;
+    display: grid;
+    grid-template-rows: 50px 50px 50px;
+  }
+  .search_input {
+    width: 50%;
+  }
+  .main {
+    margin: 0 auto;
+    grid-template-columns: repeat(1,1fr);
+    max-width: 600px;
+  }
+  .allAttr {
+    width: 100%;
+    height: auto;
+  }
+  .img{
+    max-width: auto;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px 5px 0px 0px;
+    aspect-ratio:16/11;
+  }
+  .search_category{
+    width: 320px;
+    height: 162px;
+  }
+}
