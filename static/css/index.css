@@ -24,6 +24,7 @@ body {
   font-size: 30px;
   color: #448899;
   margin-right: auto;
+  cursor: pointer;
 }
 .booking{
   font-family: "Noto Sans TC";
