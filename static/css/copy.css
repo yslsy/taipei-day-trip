@@ -1,0 +1,514 @@
+* {
+    margin: 0;
+}
+.outtoptitle{
+    width: 100%;
+    margin: 0px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+  .toptitle{
+    width: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.theme{
+    font-family:'Noto Sans TC';
+    font-weight: 700;
+    font-size: 30px;
+    color: #448899;
+    margin-right: auto;
+    cursor: pointer;
+}
+.booking{
+    font-family: "Noto Sans TC";
+    font-weight: 500;
+    font-size: 16px;
+    color: #666666;
+    margin-right: 5px;
+}
+.signin_signup{
+    font-family: "Noto Sans TC";
+    font-weight: 500;
+    font-size: 16px;
+    color: #666666;
+    margin-left: 5px;
+}
+
+/* left middleblock*/
+.outmiddleblock{
+    margin: 0 auto;
+    max-width: 1200px;
+    height: 380px;
+    padding: 50px 25px 50px 25px;
+    display: flex;
+}
+.imgcontainer{
+    width: 590px;
+    position: relative;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+/* Hide the images by default */
+.imgSlides{
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+.attrImage{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 20%;
+}
+.previousbtn{
+    background-image: url("../img/btn_rightArrow.png");
+    background-size: cover;
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    position: absolute;
+    top: 50%;
+    right: 0%;
+    margin: 5px;
+    opacity: 0.5;
+}
+.nextbtn{
+    background-image: url("../img/btn_leftArrow.png");
+    background-size: cover;
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    position: absolute;
+    top: 50%;
+    margin: 5px;
+    opacity: 0.7;
+}
+.outsideDot{
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    bottom: 0px;
+}
+.dot{
+    height: 12px;
+    width: 12px;
+    margin: 0 2px;
+    background-color: #FFFFFF;
+    border-radius: 50%;
+    border: solid 1px #FFFFFF;
+    display: inline-block;
+    opacity: 0.8;
+}
+.active{
+    background-color: #000000;
+    border: solid 1px #FFFFFF;
+}
+
+/* right middleblock */
+.ordercontainer{
+    width: 590px;
+    margin-left: 10px;
+}
+.attrname{
+    font-family: "Noto Sans TC";
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #666666;
+}
+.attrcategoryandmrt{
+    font-family: "Noto Sans TC";
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 14px;
+    color: #666666;
+}
+.orderblock{
+    background-color: #E8E8E8;
+    border-radius: 5px;
+    height: 300px;
+}
+.subtitle1{
+    font-family: "Noto Sans TC";
+    font-size: 16px;
+    font-weight: bold;
+    color: #666666;
+    padding-top: 15px;
+    padding-right: 15px;
+    padding-left: 20px; 
+}
+.subtitle2{
+    display: flex;
+    font-family: "Noto Sans TC";
+    font-size: 16px;
+    font-weight: bold;
+    color: #666666;
+    padding-top: 15px;
+    padding-left: 20px;
+}
+input[type=radio] {
+    appearance: none;
+    height: 18px;
+    width: 18px;
+    margin: 0 2px;
+    background-color: #FFFFFF;
+    border-radius: 50%;
+    border: solid 2px #FFFFFF;
+}
+input[type="radio"]:checked {
+    background-color: #448899;
+}
+.bookbtndiv{
+    padding-top: 30px;
+    padding-left: 20px;
+}
+.bookbtn{
+    width: 154px;
+    height: 36px;
+    background: #448899;
+    border-radius: 5px;
+    color:#FFFFFF;
+    font-size: 19px;
+    border: 0;
+    cursor: pointer;
+}
+
+/* bottomblock */
+.outdatablock{
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 50px 25px 50px 25px;
+}
+.subtitle3{
+    font-family: "Noto Sans TC";
+    font-size: 16px;
+    font-weight: bold;
+    color: #666666;
+    padding-top: 15px;
+}
+.attrintroduce,
+.attraddress,
+.attrtraffic {
+    font-family: "Noto Sans TC";
+    font-size: 16px;
+    font-weight: 400;
+    color: #666666;
+    line-height: 25px;
+}
+
+/*footer*/
+footer{
+    height: 104px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #757575;
+    color: #FFFFFF;
+    font-family: "Noto Sans TC";
+    font-weight: 700;
+    font-size: 16px;
+}
+
+@media(max-width:1200px) {
+    .outtoptitle {
+        width: 80%;
+    }
+    .toptitle{
+        padding: 5px;
+    }
+    .welcome_text{
+        width: 85%;
+    }
+    .outmiddleblock {
+        width: 80%;
+    }
+    .outdatablock {
+        width: 80%;
+    }
+}
+@media(max-width:1000px) {
+    .outmiddleblock {
+        width: 80%;
+        height: 250px;
+    }
+    .imgcontainer{
+        width: 390px;
+    }
+    .nextbtn,
+    .previousbtn{
+        width: 24px;
+        height: 24px;
+    }
+    .dot{
+        height: 11px;
+        width: 11px;
+    }
+    .nameblock{
+        height: 50px;
+    }
+    .attrname{
+        font-size: 18px;
+        margin-bottom: 5px;
+    }
+    .attrcategoryandmrt{
+        font-size: 13px;
+        margin-bottom: 5px;
+    }
+    .orderblock{
+        height: 200px;
+    }
+    .subtitle1,
+    .subtitle2{
+        font-size: 13px;
+        padding-top: 10px;
+        padding-right: 5px;
+        padding-left: 10px;
+    }
+    .bookbtndiv{
+        padding-top: 10px;
+        padding-left: 10px;
+    }
+    .bookbtn{
+        width: 102px;
+        height: 24px;
+        font-size: 14px;
+    }
+    .ordercontainer{
+        width: 390px;
+    }
+}
+@media(max-width:800px) {
+    .outmiddleblock {
+        width: 80%;
+        height: 220px;
+    }
+    .imgcontainer{
+        width: 310px;
+    }
+    .nextbtn,
+    .previousbtn{
+        width: 20px;
+        height: 20px;
+    }
+    .dot{
+        height: 10px;
+        width: 10px;
+    }
+    .nameblock{
+        height: 50px;
+    }
+    .attrname{
+        font-size: 18px;
+    }
+    .attrcategoryandmrt{
+        font-size: 13px;
+        margin-bottom: 5px;
+    }
+    .orderblock{
+        height: 176px;
+    }
+    .subtitle1,
+    .subtitle2{
+        font-size: 13px;
+        padding-top: 5px;
+        padding-right: 5px;
+        padding-left: 5px;
+    }
+    .bookbtndiv{
+        padding-top: 5px;
+        padding-left: 5px;
+    }
+    .bookbtn{
+        width: 102px;
+        height: 24px;
+        font-size: 14px;
+    }
+    .ordercontainer{
+        width: 310px;
+    }
+}
+@media(max-width:600px) {
+    .outmiddleblock {
+        width: 80%;
+        height: 650px;
+        display: block;
+        padding: 40px 25px 40px 25px;
+    }
+    .imgcontainer{
+        width: 100%;
+        height: 300px;
+        margin-bottom: 10px;
+    }
+    .nextbtn,
+    .previousbtn{
+        width: 30px;
+        height: 30px;
+    }
+    .dot{
+        height: 11px;
+        width: 11px;
+    }
+    .nameblock{
+        height: 60px;
+    }
+    .attrname{
+        font-size: 24px;
+    }
+    .attrcategoryandmrt{
+        font-size: 16px;
+        margin-bottom: 15px;
+    }
+    .orderblock{
+        height: 270px;
+    }
+    .subtitle1,
+    .subtitle2{
+        font-size: 16px;
+        padding-top: 15px;
+        padding-right: 10px;
+        padding-left: 15px;
+    }
+    .bookbtndiv{
+        padding-top: 30px;
+        padding-left: 20px;
+    }
+    .bookbtn{
+        width: 154px;
+        height: 36px;
+        font-size: 19px;
+    }
+    .ordercontainer{
+        width: 100%;
+        height: 330px;
+        margin-left: 0px;
+    }
+}
+@media(max-width:500px) {
+    .outtoptitle{
+        width: 100%;
+    }
+    .outmiddleblock {
+        width: 100%;
+        height: 710px;
+        display: block;
+        padding: 0px;
+    }
+    .imgcontainer{
+        width: 100%;
+        height: 300px;
+        margin-bottom: 10px;
+    }
+    .nextbtn,
+    .previousbtn{
+        width: 30px;
+        height: 30px;
+    }
+    .dot{
+        height: 11px;
+        width: 11px;
+    }
+    .nameblock{
+        width: 350px;
+        height: 60px;
+    }
+    .attrname{
+        font-size: 24px;
+    }
+    .attrcategoryandmrt{
+        font-size: 16px;
+        margin-bottom: 15px;
+    }
+    .orderblock{
+        width: 350px;
+        height: 280px;
+    }
+    .subtitle1,
+    .subtitle2{
+        font-size: 16px;
+        padding-top: 15px;
+        padding-right: 10px;
+        padding-left: 15px;
+    }
+    .bookbtndiv{
+        padding-top: 30px;
+        padding-left: 20px;
+    }
+    .bookbtn{
+        width: 154px;
+        height: 36px;
+        font-size: 19px;
+    }
+    .ordercontainer{
+        width: 100%;
+        height: 330px;
+        margin-left: 0px;
+        padding: 10px 5px 0px 5px;
+    }
+}
+@media(max-width:360px) {
+    .outtoptitle{
+        width: 100%;
+    }
+    .outmiddleblock {
+        width: 100%;
+        height: 710px;
+        display: block;
+        padding: 0px;
+    }
+    .imgcontainer{
+        width: 100%;
+        height: 300px;
+        margin-bottom: 10px;
+    }
+    .nextbtn,
+    .previousbtn{
+        width: 30px;
+        height: 30px;
+    }
+    .dot{
+        height: 11px;
+        width: 11px;
+    }
+    .nameblock{
+        width: 350px;
+        height: 60px;
+    }
+    .attrname{
+        font-size: 24px;
+    }
+    .attrcategoryandmrt{
+        font-size: 16px;
+        margin-bottom: 15px;
+    }
+    .orderblock{
+        width: 350px;
+        height: 280px;
+    }
+    .subtitle1,
+    .subtitle2{
+        font-size: 16px;
+        padding-top: 15px;
+        padding-right: 10px;
+        padding-left: 15px;
+    }
+    .bookbtndiv{
+        padding-top: 30px;
+        padding-left: 20px;
+    }
+    .bookbtn{
+        width: 154px;
+        height: 36px;
+        font-size: 19px;
+    }
+    .ordercontainer{
+        width: 100%;
+        height: 330px;
+        margin-left: 0px;
+        padding: 10px 5px 0px 5px;
+    }
+}

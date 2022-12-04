@@ -2,13 +2,18 @@ let keyword;
 let nextPage;
 let isLoading = false;
 
+//回首頁
+function toindex(){
+    window.location.href="/";
+}
+
 //載入首頁
 window.addEventListener("load",()=>{
     load('0');
     let options = {
         root: null,
         rootMargin: "0px 0px 0px 0px",
-        threshold: [1]
+        threshold: 1
     }
     let observer = new IntersectionObserver(loadAll, options);
     let footer = document.getElementById("footer");
@@ -39,6 +44,7 @@ function searchcategory(){
             searchCat.appendChild(categoryItem);
         }
         isLoading = false;
+        console.log(isLoading);
     })
 }
 searchcategory();
@@ -50,6 +56,7 @@ function load(page){
 }
 function loadFetch(url){
     isLoading = true;
+    console.log(isLoading)
     fetch(url).then((response) =>{
         return response.json();
     }).then((result) =>{
@@ -85,6 +92,9 @@ function fetchattraction(result){
                 main.classList.add("main");
                 const allAttr = document.createElement("div");
                 allAttr.classList.add("allAttr");
+                allAttr.onclick=()=>{
+                    window.location.href="/attraction/"+result["data"][i]["id"];
+                }
         
                 const imgName = document.createElement("div");
                 imgName.classList.add("imgName");
@@ -120,7 +130,8 @@ function fetchattraction(result){
                 main.appendChild(allAttr);
             }
     nextPage = result.nextpage;
-    isLoading = false; 
+    isLoading = false;
+    console.log(isLoading);
 }
 
 function loadAll(){
