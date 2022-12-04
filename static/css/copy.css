@@ -63,7 +63,6 @@
     height: 100%;
     object-fit: cover;
     object-position: 50% 20%;
-    border-radius: 5px;
 }
 .previousbtn{
     background-image: url("../img/btn_rightArrow.png");
@@ -150,13 +149,6 @@
     color: #666666;
     padding-top: 15px;
     padding-left: 20px;
-    align-items:  center;
-}
-input[type=date] {
-    width: 110px;
-    height: 20px;
-    padding: 5px;
-    border: 0;
 }
 input[type=radio] {
     appearance: none;
@@ -242,7 +234,7 @@ footer{
 @media(max-width:1000px) {
     .outmiddleblock {
         width: 80%;
-        height: 260px;
+        height: 250px;
     }
     .imgcontainer{
         width: 390px;
@@ -268,7 +260,7 @@ footer{
         margin-bottom: 5px;
     }
     .orderblock{
-        height: 210px;
+        height: 200px;
     }
     .subtitle1,
     .subtitle2{
@@ -293,7 +285,7 @@ footer{
 @media(max-width:800px) {
     .outmiddleblock {
         width: 80%;
-        height: 240px;
+        height: 220px;
     }
     .imgcontainer{
         width: 310px;
@@ -318,7 +310,7 @@ footer{
         margin-bottom: 5px;
     }
     .orderblock{
-        height: 190px;
+        height: 176px;
     }
     .subtitle1,
     .subtitle2{
@@ -421,9 +413,8 @@ footer{
         width: 11px;
     }
     .nameblock{
-        width: 95%;
+        width: 350px;
         height: 60px;
-        margin: 12px;
     }
     .attrname{
         font-size: 24px;
@@ -433,9 +424,8 @@ footer{
         margin-bottom: 15px;
     }
     .orderblock{
-        width: 95%;
+        width: 350px;
         height: 280px;
-        margin: 12px;
     }
     .subtitle1,
     .subtitle2{
@@ -456,29 +446,69 @@ footer{
     .ordercontainer{
         width: 100%;
         height: 330px;
-    }
-}
-@media(max-width:430px) {
-    .nameblock{
-        margin: 10px
-    }
-    .orderblock{
-        margin: 10px
+        margin-left: 0px;
+        padding: 10px 5px 0px 5px;
     }
 }
 @media(max-width:360px) {
+    .outtoptitle{
+        width: 100%;
+    }
+    .outmiddleblock {
+        width: 100%;
+        height: 710px;
+        display: block;
+        padding: 0px;
+    }
+    .imgcontainer{
+        width: 100%;
+        height: 300px;
+        margin-bottom: 10px;
+    }
+    .nextbtn,
+    .previousbtn{
+        width: 30px;
+        height: 30px;
+    }
+    .dot{
+        height: 11px;
+        width: 11px;
+    }
     .nameblock{
-        width: 95%;
+        width: 350px;
         height: 60px;
-        margin: 9px
+    }
+    .attrname{
+        font-size: 24px;
+    }
+    .attrcategoryandmrt{
+        font-size: 16px;
+        margin-bottom: 15px;
     }
     .orderblock{
-        width: 95%;
+        width: 350px;
         height: 280px;
-        margin: 9px
+    }
+    .subtitle1,
+    .subtitle2{
+        font-size: 16px;
+        padding-top: 15px;
+        padding-right: 10px;
+        padding-left: 15px;
+    }
+    .bookbtndiv{
+        padding-top: 30px;
+        padding-left: 20px;
+    }
+    .bookbtn{
+        width: 154px;
+        height: 36px;
+        font-size: 19px;
     }
     .ordercontainer{
         width: 100%;
         height: 330px;
+        margin-left: 0px;
+        padding: 10px 5px 0px 5px;
     }
 }
