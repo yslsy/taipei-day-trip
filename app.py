@@ -1,6 +1,8 @@
-from flask import Flask,request,json,jsonify,render_template,redirect,session,url_for
+from flask import Flask,request,json,jsonify,render_template,redirect,url_for
 from flask import *
 import mysql.connector
+import jwt
+from datetime import datetime, timedelta
 app=Flask(
 	__name__,
 	static_folder="static",
@@ -8,15 +10,16 @@ app=Flask(
 	)
 app.config["JSON_AS_ASCII"]=False
 app.config["TEMPLATES_AUTO_RELOAD"]=True
+app.config['SECRET_KEY'] = 'M\xe9\x98\x18\x94|\xca\xdf\xadg\xd31'
 
-attrdb = mysql.connector.connect(
+mydb = mysql.connector.connect(
     host="localhost",
     user="root",
     password="123321zz",
     database="taipeiattractions",
     charset="utf-8"
 )
-cursor = attrdb.cursor()
+cursor = mydb.cursor()
 
 # Pages
 @app.route("/")
@@ -145,6 +148,96 @@ def get_categories_list():
 			"data": result1
 		})
 
+# 註冊
+@app.route("/api/user", methods=["POST"])
+def user_signup():
+	data = request.get_json()
+	name = data["user"]
+	email = data["email"]
+	password = data["password"]
+	try:
+		sql = ("SELECT email FROM member WHERE email = %s")
+		cursor.execute(sql, (email,))
+		check_email = cursor.fetchone()
+		if check_email:
+			return jsonify({
+				"error": True,
+				"message": "該信箱已被註冊"
+			}), 400
+		else:
+			sql_insert = "INSERT INTO member(name,email,password)VALUES (%s, %s, %s)"
+			val = (name, email, password)
+			cursor.execute(sql_insert, val)
+			mydb.commit()
+			return jsonify({
+				"ok": True
+			}), 200
+	except Exception:
+		return jsonify({
+			"error": True,
+			"message": "伺服器內部錯誤"
+		}), 500
 
+# 取得會員資訊
+@app.route("/api/user/auth", methods=["GET"])
+def user_state():
+	get_token = request.cookies.get("token")
+	if get_token:
+		decodedtoken = jwt.decode(get_token, app.config['SECRET_KEY'], algorithms=['HS256'])
+		token_email = decodedtoken["email"]
+		cursor.execute(("SELECT * FROM member WHERE email = %s"), (token_email, ))
+		userdata = cursor.fetchone()
+		if userdata:
+			return jsonify({
+				"data":{
+					"id": userdata[0],
+					"name": userdata[1],
+					"email": userdata[3]
+				}
+			})
+	else:
+		return jsonify({
+			"error": True,
+			"message": "伺服器內部錯誤"
+		}), 500
+
+# 登入
+@app.route("/api/user/auth", methods=["PUT"])
+def user_login():
+	data = request.get_json()
+	email = data["email"]
+	password = data["password"]
+	cursor.execute(("SELECT * FROM member WHERE email = %s and password = %s"), (email, password,))
+	check_user = cursor.fetchone()
+	try:
+		if not check_user:
+			return jsonify({
+				"error": True,
+				"message": "登入失敗，信箱或密碼錯誤"
+			}), 400
+		else:
+			response = make_response({
+				"ok": True
+			}, 200)
+			encodetoken = jwt.encode(
+				{"email": data["email"],"exp": datetime.utcnow() + timedelta(days=7)},
+				app.config['SECRET_KEY'],
+				algorithm='HS256')
+			response.set_cookie('token', encodetoken, max_age=604800)
+			return response
+	except Exception:
+		return jsonify({
+			"error": True,
+			"message": "伺服器內部錯誤"
+		}), 500
+
+# 登出
+@app.route("/api/user/auth", methods=["DELETE"])
+def user_logout():
+	response = make_response({
+				"ok": True
+			}, 200)
+	response.set_cookie('token',"", max_age=-1)
+	return response
 
 app.run(host='0.0.0.0',port=3000)

@@ -1,0 +1,132 @@
+.loginmodal,
+.signupmodal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 60px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+  
+.loginform,
+.signupform {
+    background-color: #fefefe;
+    margin: auto;
+    border: 0;
+    width: 340px;
+    border-radius: 0px 0px 5px 5px;
+}
+
+.top{
+    margin: auto;
+    width: 340px;
+    height: 10px;
+    background: linear-gradient(270deg, #337788 0%, #66AABB 100%);
+    border-radius: 5px 5px 0px 0px;
+}
+
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    padding-right: 7px;
+}
+  
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.logintitle,
+.signuptitle {
+    font-family: "Noto Sans TC";
+    font-size: 24px;
+    font-weight: 700;
+    width: 310px;
+    margin: auto;
+    text-align:center;
+    color: #666666;
+    padding: 5px;
+}
+
+.inputblock{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.loginemail,
+.loginpw,
+.signupuser,
+.signupemail,
+.signuppw {
+    font-family: "Noto Sans TC";
+    font-size: 16px;
+    width: 300px;
+    height: 47px;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.logintext,
+.signuptext {
+    font-family: "Noto Sans TC";
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #FF0000;
+}
+
+.loginbtn,
+.signupbtn {
+    font-family: "Noto Sans TC";
+    font-size: 19px;
+    width: 310px;
+    height: 47px;
+    background: #448899;
+    border-radius: 5px;
+    color: #FFFFFF;
+    text-align: center;
+    border: 0;
+    margin-bottom: 10px;
+}
+
+.loginbtn:hover,
+.signupbtn:hover {
+    cursor: pointer;
+    background: #66AABB;
+
+}
+
+.logintosignup,
+.signuptologin {
+    font-family: "Noto Sans TC";
+    font-size: 16px;
+    width: 310px;
+    color: #666666;
+    text-align: center;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.logintosignup:hover,
+.signuptologin:hover {
+    text-decoration: underline;
+}
+
+@media(max-width: 500px) {
+    .loginmodal,
+    .signupmodal {
+        height: 80%;
+    }
+}
