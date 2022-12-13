@@ -90,7 +90,7 @@ window.addEventListener("load",()=>{
             booking.style.display = "block";
             login.style.display = "none";
             logout.style.display = "block";
-        }else{
+        }else if(result["error"]){
             booking.style.display = "block";
             login.style.display = "block";
             logout.style.display = "none";
