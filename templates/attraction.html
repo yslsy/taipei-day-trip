@@ -3,15 +3,47 @@
     <head>
         <meta charset = "utf-8" name="viewport" content="width=device-width, initial-scale = 1" />
         <title>台北一日遊</title>
+        <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}"/>
         <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/attraction.css')}}" />
+        <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='css/member.css')}}"/>
     </head>
     <body>
         <div class="outtoptitle">
             <div class="toptitle">
                 <div class="theme" onclick="toindex()">台北一日遊</div>
                 <div class="booking">預定行程</div>
-                <div class="signin_signup">登入/註冊</div>
+                <div id="login" class="signin_signup">登入/註冊</div>
+                <div id="logout" class="logout">登出</div>
             </div>
+        </div>
+        <div class="loginmodal">
+            <div class="top"></div>
+            <form class="loginform">
+                <span class="close">&times;</span>
+                <div class="logintitle">登入會員帳號</div>
+                <div class="inputblock">
+                    <input type="text" name="email" class="loginemail" placeholder="輸入電子信箱" required />
+                    <input type="password" name="password" class="loginpw" placeholder="輸入密碼" required />
+                    <button class="loginbtn">登入帳戶</button>
+                    <p class="logintext"></p>
+                    <div class="logintosignup">還沒有帳戶？點此註冊</div>
+                </div>
+            </form>
+        </div>
+        <div class="signupmodal">
+            <div class="top"></div>
+            <form class="signupform">
+                <span class="close">&times;</span>
+                <div class="signuptitle">註冊會員帳號</div>
+                <div class="inputblock">
+                    <input type="text" name="user" class="signupuser" placeholder="輸入姓名" required />
+                    <input type="text" name="email" class="signupemail" placeholder="輸入電子信箱" required />
+                    <input type="password" name="password" class="signuppw" placeholder="輸入密碼" required />
+                    <button class="signupbtn">註冊新帳戶</button>
+                    <p class="signuptext"></p>
+                    <div class="signuptologin">已經有帳戶了？點此登入</div>
+                </div>
+            </form>
         </div>
     <hr style="background-color:#E8E8E8;border: 0;height: 1px;" />
         <div class="outmiddleblock">
@@ -60,5 +92,7 @@
 
         <footer>COPYRIGHT © 2021 台北一日遊</footer>
     </body>
+    <script src="../js/index.js"></script>
     <script src="../js/attraction.js"></script>
+    <script src="../js/member.js"></script>
 </html>

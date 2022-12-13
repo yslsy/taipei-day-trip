@@ -26,19 +26,21 @@ body {
   margin-right: auto;
   cursor: pointer;
 }
-.booking{
-  font-family: "Noto Sans TC";
-  font-weight: 500;
-  font-size: 16px;
-  color: #666666;
-  margin-right: 5px;
-}
-.signin_signup{
+.booking,
+.signin_signup,
+.logout {
   font-family: "Noto Sans TC";
   font-weight: 500;
   font-size: 16px;
   color: #666666;
   margin-left: 5px;
+  cursor: pointer;
+  display: none;
+}
+.booking:hover,
+.signin_signup:hover,
+.logout:hover {
+  color: #969494;
 }
 .welcome{
   display: flex;
@@ -204,7 +206,7 @@ body {
   grid-template-columns: 50% 50%;
   font-weight: 5000;
   font-size: 16px;
-  z-index: 1;
+  /* z-index: 1; */
 }
 .mrt{
   grid-area: 1/ 1/ 2 /2;
