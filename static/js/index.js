@@ -173,3 +173,18 @@ function blockoff() {
     const outblock = document.querySelector(".blockoff");
     outblock.style.display = "none";
 }
+
+// 點選預定行程
+document.querySelector(".booking").addEventListener("click", ()=>{
+    fetch("/api/user/auth", {
+        method:"GET",
+    }).then((response)=>{
+        return response.json()
+    }).then((result)=>{
+        if (result["data"]!=null){
+            window.location.href="/booking"
+        }else{
+            loginModal.style.display = "block"
+        }
+    })
+})

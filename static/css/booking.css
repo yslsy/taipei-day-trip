@@ -1,0 +1,190 @@
+body {
+    font-family: "Noto Sans TC";
+}
+.welcomeblock {
+    width: 1000px;
+    font-size: 19px;
+    font-weight: 700;
+    color: #666666;
+    margin: 0 auto;
+    padding: 50px 25px 25px 25px;
+}
+.bookcontainor {
+    width: 980px;
+    margin: 0 auto;
+}
+.bookingblock {
+    display: flex;
+    padding-bottom: 25px;
+}
+.tourimage {
+    width: 260px;
+}
+.tourImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+.tourdatacontainor {
+    width: 720px;
+    position: relative;
+}
+.tourtitle {
+    font-size: 16px;
+    font-weight: 700;
+    color: #448899;
+    padding: 2px 10px 5px 20px;
+}
+.toursubtitle {
+    font-size: 16px;
+    font-weight: 500;
+    padding: 5px 10px 5px 20px;
+}
+.deleteicon {
+    position: absolute;
+    cursor: pointer;
+    right: 0px;
+    top: 0px;
+}
+.contactblock,
+.payingblock {
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+.checkpayingblock {
+    padding-top: 25px;
+    padding-bottom: 25px;
+    float: right;
+}
+.bookingsubtitle {
+    font-size: 19px;
+    font-weight: 700;
+    color: #666666;
+}
+.contactdata,
+.carddata {
+    display: flex;
+    font-size: 16px;
+    font-weight: 500;
+    color: #666666;
+    padding-top: 10px;
+    padding-bottom: 10px; 
+    align-items:  center;
+}
+input[type=text] {
+    border-radius: 5px;
+    border: solid 1px #E8E8E8;
+    width: 200px;
+    height: 20px;
+    padding: 5px;
+}
+.totalpricecontainor {
+    font-size: 16px;
+    font-weight: 700;
+    width: 154px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: #666666 
+}
+.payingbutton {
+    width: 154px;
+    height: 36px;
+    background: #448899;
+    border-radius: 5px;
+    color:#FFFFFF;
+    font-size: 19px;
+    border: 0;
+    cursor: pointer;
+}
+.nobooking {
+    display: none;
+    width: 980px;
+    margin: 0 auto;
+}
+.nobookingtext {
+    font-size: 16px;
+    font-weight: 500;
+    padding-bottom: 25px;
+}
+.hrstyle {
+    width: 1000px;
+    background-color:#E8E8E8;
+    border: 0;
+    height: 1px;
+}
+@media(max-width: 1000px) {
+    .welcomeblock {
+        width: 80%
+    }
+    .bookcontainor {
+        width: 80%;
+    }
+    .hrstyle {
+        width: 100%;
+    }
+    .nobooking {
+        width: 80%;
+    }
+}
+@media(max-width: 800px) {
+    .tourimage {
+        width: 220px;
+    }
+    .tourdatacontainor {
+        width: 420px;
+    }
+}
+@media(max-width: 600px) {
+    .outtoptitle {
+        width: 100%;
+    }
+    .welcomeblock {
+        width: 100%;
+        padding: 50px 0px 25px 0px;
+    } 
+    .welcometext {
+        width: 80%;
+        padding-left: 5px;
+    }
+    .bookcontainor {
+        width: 100%;
+    }
+    .bookingblock {
+        display: block;
+        width: 100%;
+    }
+    .tourimage {
+        width: 100%;
+    }
+    .tourdatacontainor {
+        width: 100%;
+        position: relative;
+        padding-bottom: 25px;
+    }
+    .deleteicon {
+        /* float: none; */
+        position: absolute;
+        right: 5px;
+        bottom: 0px;
+        top:auto;
+    }
+    .tourtitle {
+        padding-left: 2px;
+    }
+    .toursubtitle,
+    .bookingsubtitle {
+        padding-left: 2px;
+    }
+    .contactdata,
+    .carddata {
+        padding-left: 2px;
+    }
+    .checkpayingblock {
+        margin-right: 10px;
+    }
+    .nobooking {
+        padding-left: 2px;
+        margin: 0px;
+    }
+}

@@ -289,4 +289,130 @@ def user_logout():
 	response.set_cookie('token',"", max_age=-1)
 	return response
 
+# 取得尚未確認下單的預定行程
+@app.route("/api/booking", methods=["GET"])
+def get_bookingdata():
+	#驗證是否登入
+	get_token = request.cookies.get("token")
+	connection_object = connection_pool.get_connection()
+	cursor = connection_object.cursor()
+	try:
+		decodedtoken = jwt.decode(get_token, app.config['SECRET_KEY'], algorithms=['HS256'])
+		sql = "SELECT attractionId, name, address, images, date, time, price FROM booking INNER JOIN attractions ON booking.attractionId = attractions.id"
+		cursor.execute(sql)
+		result = cursor.fetchone()
+		if result:
+			return jsonify({
+				"data": {
+					"attraction": {
+						"id": result[0],
+						"name": result[1],
+						"address": result[2],
+						"image": eval(result[3])
+					},
+					"date": result[4],
+					"time": result[5],
+					"price": result[6]
+				}
+			})
+		return jsonify({
+			"data": None
+		})
+	except Exception:
+		return jsonify({
+			"error": True,
+			"message": "未登入系統，拒絕存取"
+		}), 403
+	finally:
+		cursor.close()
+		connection_object.close()
+
+
+# 建立新的預定行程
+@app.route("/api/booking", methods=["POST"])
+def built_booking():
+	data = request.get_json()
+	attractionId = data["attractionId"]
+	date = data["date"]
+	time = data["time"]
+	price = data["price"]
+	print(price)
+	# 驗證是否登入
+	get_token = request.cookies.get("token")
+	connection_object = connection_pool.get_connection()
+	cursor = connection_object.cursor()
+	try:
+		decodedtoken = jwt.decode(get_token, app.config['SECRET_KEY'], algorithms=['HS256'])
+		try:
+			if (attractionId == ""):
+				return jsonify({
+					"error": True,
+					"message": "景點編號錯誤"
+				}), 400
+			elif(date == ""):
+				return jsonify({
+					"error": True,
+					"message": "未選擇日期"
+				}), 400
+			else:
+				cursor.execute("SELECT * FROM booking")
+				check_bookingdata = cursor.fetchone()
+				print(check_bookingdata)
+				print(attractionId, date, time, price)
+				if check_bookingdata:
+					sql = "UPDATE booking SET attractionId=%s,date=%s,time=%s,price=%s WHERE id = 1"
+					val = (attractionId, date, time, price)
+					cursor.execute(sql, val)
+					connection_object.commit()
+					return jsonify({
+						"ok": True
+					}),200
+				else:
+					sql = "INSERT INTO booking(id, attractionId, date, time, price)VALUES(%s, %s, %s, %s, %s)"
+					val = ("1", attractionId, date, time, price)
+					cursor.execute(sql, val)
+					connection_object.commit()
+					return jsonify({
+							"ok": True
+						}),200
+		except Exception:
+			return jsonify({
+				"error": True,
+				"message": "伺服器內部錯誤"
+			}), 500
+	except Exception:
+		return jsonify({
+			"error": True,
+			"message": "未登入系統，拒絕存取"
+		}), 403
+	finally:
+		cursor.close()
+		connection_object.close()
+		print("MySQL connection is /api/booking, methods=POST")
+		
+
+# 刪除目前的預定行程
+@app.route("/api/booking", methods=["DELETE"])
+def delete_booking():
+	# 驗證是否登入
+	get_token = request.cookies.get("token")
+	connection_object = connection_pool.get_connection()
+	cursor = connection_object.cursor()
+	try:
+		decodedtoken = jwt.decode(get_token, app.config['SECRET_KEY'], algorithms=['HS256'])
+		cursor.execute("DELETE FROM booking WHERE id = 1")
+		connection_object.commit()
+		return jsonify({
+				"ok": True
+			}),200
+	except Exception:
+		return jsonify({
+			"error": True,
+			"message": "未登入系統，拒絕存取"
+		}), 403
+	finally:
+		cursor.close()
+		connection_object.close()
+
+
 app.run(host='0.0.0.0',port=3000)
