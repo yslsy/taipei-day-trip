@@ -53,41 +53,47 @@ TPDirect.card.setup({
 const payingButton = document.querySelector(".payingbutton")
 payingButton.addEventListener("click", (event)=>{
     event.preventDefault()
-    console.log("clickpayingbutton")
     let contactName = encodeURIComponent(document.querySelector("#name").value)
-
-    // Get prim
-    TPDirect.card.getPrime((result) =>{
-        if (result.status !== 0){
-            return result
-        }else{
-            fetch("/api/orders", {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({
-                    "prime": result.card.prime,
-                    "order": {
-                        "price": document.querySelector("#orderprice").textContent,
-                        "trip": trip,
-                        "contact": {
-                            "name": contactName,
-                            "email": document.querySelector("#email").value,
-                            "phone": document.querySelector("#phone").value,
+    let contactEmail = document.querySelector("#email").value;
+    let contactPhone = document.querySelector("#phone").value;
+    if (contactName == "" || contactEmail == "" || contactPhone == ""){
+        alert("請輸入聯絡人資訊！")
+    }else{
+        // Get prim
+        TPDirect.card.getPrime((result) =>{
+            if (result.status !== 0){
+                return result
+            }else{
+                fetch("/api/orders", {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({
+                        "prime": result.card.prime,
+                        "order": {
+                            "price": document.querySelector("#orderprice").textContent,
+                            "trip": trip,
+                            "contact": {
+                                "name": contactName,
+                                "email": contactEmail,
+                                "phone": contactPhone,
+                            }
                         }
-                    }
+                    })
+                }).then((response)=>{
+                    return response.json()
+                }).then((result) =>{
+                    if (result["data"]["payment"]["status"] == 0){
+                        let orderNumber = result.data.number;
+                        window.location.href="/thankyou?number="+orderNumber;
+                    }else{
+                        alert("訊息輸入錯誤!")
+                    }  
                 })
-            }).then((response)=>{
-                return response.json()
-            }).then((result) =>{
-                if (result["data"]["payment"]["status"] == 0){
-                    let orderNumber = result.data.number;
-                    window.location.href="/thankyou?number="+orderNumber;
-                }else{
-                    alert("訊息輸入錯誤!")
-                }  
-            })
-        }
-    })
+            }
+        })
+    }
+
+    
 
     // 刪除已預定行程
     // fetch("/api/booking",{
