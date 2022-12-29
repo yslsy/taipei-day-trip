@@ -97,15 +97,27 @@ input[type=text] {
     border: 0;
     cursor: pointer;
 }
+.tpfield {
+    border-radius: 5px;
+    width: 200px;
+    height: 20px;
+    border: 1px solid #E8E8E8;
+    padding: 5px;
+}
 .nobooking {
     display: none;
     width: 980px;
     margin: 0 auto;
+    height: 65%;
 }
 .nobookingtext {
     font-size: 16px;
     font-weight: 500;
     padding-bottom: 25px;
+}
+.bookingfooter {
+    height: 20%;
+    background: #757575;
 }
 .hrstyle {
     width: 1000px;

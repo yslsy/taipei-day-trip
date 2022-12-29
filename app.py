@@ -1,6 +1,6 @@
 from flask import Flask,request,json,jsonify,render_template,redirect,url_for
 from flask import *
-import jwt
+import jwt,requests
 from datetime import datetime, timedelta
 from mysql.connector import Error
 from mysql.connector import pooling
@@ -413,6 +413,140 @@ def delete_booking():
 	finally:
 		cursor.close()
 		connection_object.close()
+
+# 建立付款訂單
+@app.route("/api/orders", methods=["POST"])
+def postorder():
+	# 驗證是否登入
+	get_token = request.cookies.get("token")
+	connection_object = connection_pool.get_connection()
+	cursor = connection_object.cursor()
+	try:
+		decodedtoken = jwt.decode(get_token, app.config['SECRET_KEY'], algorithms=['HS256'])
+		data = request.get_json()
+
+		order_data = json.dumps({
+			"prime": data["prime"],
+			"partner_key": "partner_60PDKZgTe5l1pacxWdikqvHAlvV8ExWhRKgxiIKagwhNcwc8MyfIoGEy",
+			"merchant_id": "yslsy224_CTBC",
+			"amount": data["order"]["price"],
+			"currency": "TWD",
+			"details": "order test",
+			"cardholder": {
+				"phone_number": data["order"]["contact"]["phone"],
+				"name": data["order"]["contact"]["name"],
+				"email": data["order"]["contact"]["email"],
+			},
+			"order_number": datetime.now().strftime("%Y%m%d%H%M%S"),
+			"remember": False
+    	})
+		headers = {
+			"Content-Type": "application/json",
+			"x-api-key": "partner_60PDKZgTe5l1pacxWdikqvHAlvV8ExWhRKgxiIKagwhNcwc8MyfIoGEy"
+		}
+		response = requests.post("https://sandbox.tappaysdk.com/tpc/payment/pay-by-prime", data = order_data, headers = headers)
+		print(response.json())
+		try:
+			# 付款成功
+			if response.json()["status"] == 0:
+				order_detail = {
+					"useremail": decodedtoken["email"],
+					"ordernumber": response.json()["order_number"],
+					"price": response.json()["amount"],
+					"attrid": data["order"]["trip"]["attraction"]["id"],
+					"attrname": data["order"]["trip"]["attraction"]["name"],
+					"attraddress": data["order"]["trip"]["attraction"]["address"],
+					"attrimage": data["order"]["trip"]["attraction"]["image"],
+					"orderdate": data["order"]["trip"]["date"],
+					"ordertime": data["order"]["trip"]["time"],
+					"contactname":  data["order"]["contact"]["name"],
+					"contactemail": data["order"]["contact"]["email"],
+					"contactphone": data["order"]["contact"]["phone"],
+					"status": 1
+				}
+				sql = "INSERT INTO payedorder(useremail, ordernumber, price, attrid, attrname, attraddress, attrimage, orderdate, ordertime, contactname, contactemail, contactphone, status)VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+				val = (order_detail["useremail"], order_detail["ordernumber"], order_detail["price"], order_detail["attrid"], order_detail["attrname"], order_detail["attraddress"], order_detail["attrimage"], order_detail["orderdate"], order_detail["ordertime"], order_detail["contactname"], order_detail["contactemail"], order_detail["contactphone"], order_detail["status"])
+				cursor.execute(sql, val)
+				connection_object.commit()
+				return jsonify({
+					"data": {
+						"number": response.json()["order_number"],
+						"payment": {
+							"status": 0,
+							"message": "付款成功"
+						}
+					}
+				}), 200
+			else:
+				return jsonify({
+					"error": true,
+					"data": {
+						"number": response.json()["order_number"],
+						"payment": {
+							"status": response.json().get("status", "無法取得status的值"),
+							"message": "付款失敗"
+						}
+					}
+				}), 400
+		except Exception as e:
+			print(e)
+			return jsonify({
+				"error": True,
+				"message": "伺服器內部錯誤"
+			}), 500
+	except Exception as e:
+		print(e)
+		return jsonify({
+			"error": True,
+			"message": "未登入系統，拒絕存取"
+		}), 403
+	finally:
+		cursor.close()
+		connection_object.close()
+
+@app.route("/api/order/<int:orderNumber>", methods=["GET"])
+def getorder(orderNumber):
+	# 驗證是否登入
+	get_token = request.cookies.get("token")
+	connection_object = connection_pool.get_connection()
+	cursor = connection_object.cursor()
+	try:
+		decodedtoken = jwt.decode(get_token, app.config['SECRET_KEY'], algorithms=['HS256'])
+		cursor.execute(f"SELECT * FROM payedorder WHERE ordernumber='{orderNumber}'")
+		payed_orderdata = cursor.fetchone()
+		return jsonify({
+			"data":{
+				"number": payed_orderdata[1],
+				"price": payed_orderdata[2],
+				"trip": {
+					"attraction": {
+						"id": payed_orderdata[3],
+						"name": payed_orderdata[4],
+						"address": payed_orderdata[5],
+						"image": payed_orderdata[6],
+					},
+					"date": payed_orderdata[7],
+					"time": payed_orderdata[8],
+				},
+				"contact": {
+					"name": payed_orderdata[9],
+					"email": payed_orderdata[10],
+					"phone": payed_orderdata[11],
+				},
+				"status": payed_orderdata[12]
+			}
+		})
+	except Exception as e:
+		print(e)
+		return jsonify({
+			"error": True,
+			"message": "未登入系統，拒絕存取"
+		}), 403
+	finally:
+		cursor.close()
+		connection_object.close()
+
+
 
 
 app.run(host='0.0.0.0',port=3000)

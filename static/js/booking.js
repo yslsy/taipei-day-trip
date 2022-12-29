@@ -1,3 +1,5 @@
+let trip;
+
 // 載入頁面
 window.addEventListener("load", ()=>{
     fetch("/api/user/auth").then((response)=>{
@@ -42,7 +44,16 @@ window.addEventListener("load", ()=>{
             document.querySelectorAll(".tourdata")[2].textContent = result["data"]["price"];
             document.querySelectorAll(".tourdata")[3].textContent = result["data"]["attraction"]["address"];
             document.querySelectorAll(".tourdata")[4].textContent = result["data"]["price"];
-            
+        }
+        trip = {
+            "attraction": {
+                "id": result["data"]["attraction"]["id"],
+                "name": result["data"]["attraction"]["name"],
+                "address": result["data"]["attraction"]["address"],
+                "image": result["data"]["attraction"]["image"][0],
+            },
+            "date": result["data"]["date"],
+            "time": result["data"]["time"],
         }
     })
 })

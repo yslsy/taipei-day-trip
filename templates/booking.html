@@ -2,11 +2,12 @@
 <html>
     <head>
         <meta charset = "utf-8" name="viewport" content="width=device-width, initial-scale = 1" />
-            <title>台北一日遊</title>
-            <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}"/>
-            <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/attraction.css')}}" />
-            <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='css/member.css')}}"/>
-            <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='css/booking.css')}}"/>
+        <title>台北一日遊</title>
+        <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}"/>
+        <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='css/attraction.css')}}" />
+        <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='css/member.css')}}"/>
+        <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='css/booking.css')}}"/>
+        <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='css/order.css')}}" />
     </head>
     <body>
         <div class="outtoptitle">
@@ -37,15 +38,15 @@
                 <div class="bookingsubtitle">您的聯絡資訊</div>
                 <div class="contactdata">
                     <div>聯絡姓名：</div>
-                    <input type="text">
+                    <input id="name" type="text">
                 </div>
                 <div class="contactdata">
                     <div>聯絡信箱：</div>
-                    <input type="text">
+                    <input id="email" type="text">
                 </div>
                 <div class="contactdata">
                     <div>手機號碼：</div>
-                    <input type="text">
+                    <input id="phone" type="text">
                 </div>
                 <div>
                     <div class="contactdata">請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。</div>
@@ -69,7 +70,7 @@
             </div>
             <hr class="hrstyle" />
             <div class="checkpayingblock">
-                <div class="totalpricecontainor">總價：新台幣<span class="tourdata"></span>元</div>
+                <div class="totalpricecontainor">總價：新台幣<span id="orderprice" class="tourdata"></span>元</div>
                 <button class="payingbutton">確認訂購並付款</button>
             </div>
         </div>
@@ -78,10 +79,13 @@
             <div class="nobookingtext">目前沒有任何待預定的行程</div>
         </div>
 
-        <footer class="bfooter">COPYRIGHT © 2021 台北一日遊</footer>
+        <footer class="bookingfooter">COPYRIGHT © 2021 台北一日遊</footer>
     </body>
     <script src="../js/index.js"></script>
     <script src="../js/attraction.js"></script>
     <script src="../js/member.js"></script>
     <script src="../js/booking.js"></script>
+    <script src="https://js.tappaysdk.com/tpdirect/v5.13.1"></script>
+    <script src="../js/order.js"></script>
+
 </html>

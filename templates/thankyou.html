@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset = "utf-8" name="viewport" content="width=device-width, initial-scale = 1" />
+        <title>台北一日遊</title>
+        <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}" />
+        <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='css/member.css')}}" />
+        <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='css/thankyou.css')}}" />
+    </head>
+    <body>
+        <div class="outtoptitle">
+            <div class="toptitle">
+                <div class="theme" onclick="toindex()">台北一日遊</div>
+                <div class="booking">預定行程</div>
+                <div id="login" class="signin_signup">登入/註冊</div>
+                <div id="logout" class="logout">登出</div>
+            </div>
+        </div>
+        <hr style="background-color:#E8E8E8;border: 0;height: 1px;" />
+        <div class="thankyoucontainor">
+            <div class="thankyoutext">
+                <div class="texttitle">
+                    您的行程預定成功，付款已經完成。<br/>
+                    訂單編號：<span class="thankyounumber"></span>
+                </div>
+                <hr class="thankhr" />
+                <div class="texttitle">
+                    <div class="textsubtitle">訂購人資訊</div>
+                    <div class="thanksubtitle">姓名：<span class="thankyoucontact"></span></div>
+                    <div class="thanksubtitle">電話：<span class="thankyoucontact"></span></div>
+                    <div class="thanksubtitle">信箱：<span class="thankyoucontact"></span></div>
+                </div>
+                <hr class="thankhr" />
+                <div class="texttitle">
+                    <div class="textsubtitle">訂單內容</div>
+                    <div class="thanksubtitle">旅遊日期：<span class="thankyoucontact"></span></div>
+                    <div class="thanksubtitle">景點名稱：<span class="thankyoucontact"></span></div>
+                    <div class="thanksubtitle">景點地址：<span class="thankyoucontact"></span></div>
+                    <div class="thanksubtitle">訂單金額：<span class="thankyoucontact"></span></div>
+                </div>
+            </div>
+        </div>
+        <div class="thankyoufooter">
+            <footer class="bfooter">COPYRIGHT © 2021 台北一日遊</footer>
+        </div>
+    </body>
+    <script src="../js/index.js"></script>
+    <script src="../js/member.js"></script>
+    <script src="../js/thankyou.js"></script>
+</html>

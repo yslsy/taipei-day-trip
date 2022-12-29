@@ -1,0 +1,61 @@
+body {
+    position: absolute;
+    bottom: 104px; /* footer 高度 */
+    top: 0;
+    left: 0;
+    right: 0;
+    overflow: auto;
+    font-family: "Noto Sans TC";
+}
+.thankyoucontainor {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 25px 35px 25px;
+    height: 70%;
+}
+.texttitle {
+    font-size: 20px;
+    font-weight: bold;
+    padding-bottom: 20px;
+}
+.textsubtitle {
+    font-size: 20px;
+    font-weight: bold;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.thanksubtitle {
+    font-size: 19px;
+    font-weight: bold;
+    color: #448899;
+    padding-bottom: 5px;
+}
+.thankyoucontact {
+    font-weight: 500;
+    color: black;
+}
+.thankyoufooter {
+    height: 20%;
+    background: #757575;
+}
+.thankhr {
+    background-color:#E8E8E8;
+    border: 0;
+    height: 1px;
+}
+@media(max-width: 1200px) {
+    .thankyoucontainor {
+        width: 80%;
+    }
+}
+@media(max-width: 600px) {
+    .thankyoucontainor {
+        width: 100%;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    .texttitle {
+        width: 80%;
+        padding-left: 2px;
+    }
+}
