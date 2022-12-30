@@ -56,12 +56,10 @@ function load(page){
 }
 function loadFetch(url){
     isLoading = true;
-    console.log(isLoading)
     fetch(url).then((response) =>{
         return response.json();
     }).then((result) =>{
         fetchattraction(result);
-        console.log(result);
     })
 }
 
@@ -81,7 +79,6 @@ function keywordFetch(url){
         if(result.data.length == 0){
             document.querySelector("main").innerHTML="沒有搜尋到結果";
           }
-        console.log(result)
         fetchattraction(result);
     })
 }
@@ -131,7 +128,6 @@ function fetchattraction(result){
             }
     nextPage = result.nextpage;
     isLoading = false;
-    console.log(isLoading);
 }
 
 function loadAll(){

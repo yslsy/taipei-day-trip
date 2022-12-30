@@ -96,15 +96,15 @@ payingButton.addEventListener("click", (event)=>{
     
 
     // 刪除已預定行程
-    // fetch("/api/booking",{
-    //     method: "DELETE",
-    // }).then((response)=>{
-    //     return response.json()
-    // }).then((result)=>{
-    //     if (result["ok"]){
-    //         document.querySelector(".welcomeblock").style.display = "block";
-    //         document.querySelector(".bookcontainor").style.display = "none";
-    //         document.querySelector(".nobooking").style.display = "block";
-    //     }
-    // })
+    fetch("/api/booking",{
+        method: "DELETE",
+    }).then((response)=>{
+        return response.json()
+    }).then((result)=>{
+        // if (result["ok"]){
+        //     document.querySelector(".welcomeblock").style.display = "block";
+        //     document.querySelector(".bookcontainor").style.display = "none";
+        //     document.querySelector(".nobooking").style.display = "block";
+        // }
+    })
 })
