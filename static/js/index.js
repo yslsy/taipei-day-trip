@@ -2,27 +2,14 @@ let keyword;
 let nextPage;
 let isLoading = false;
 
-//回首頁
+// 回首頁
 function toindex(){
     window.location.href="/";
 }
 
-//載入首頁
-window.addEventListener("load",()=>{
-    load('0');
-    let options = {
-        root: null,
-        rootMargin: "0px 0px 0px 0px",
-        threshold: 1
-    }
-    let observer = new IntersectionObserver(loadAll, options);
-    let footer = document.getElementById("footer");
-    observer.observe(footer);
-})
-
-//載入景點搜尋框
+// 載入景點搜尋框
 function searchcategory(){
-    isLoading = true;
+    // isLoading = true;
     fetch("/api/categories")
     .then((response) =>{
         return response.json();
@@ -44,18 +31,13 @@ function searchcategory(){
             searchCat.appendChild(categoryItem);
         }
         isLoading = false;
-        console.log(isLoading);
     })
 }
 searchcategory();
 
-
-function load(page){
-    let url=`/api/attractions?page=${page}`;
-    loadFetch(url);
-}
+loadFetch("/api/attractions?page=0")
 function loadFetch(url){
-    isLoading = true;
+    // isLoading = true;
     fetch(url).then((response) =>{
         return response.json();
     }).then((result) =>{
@@ -63,7 +45,7 @@ function loadFetch(url){
     })
 }
 
-//關鍵字搜尋
+// 關鍵字搜尋
 let searchBtn = document.querySelector(".search_button")
 searchBtn.addEventListener("click" ,() =>{
     keyword = document.querySelector(".search_input").value;
@@ -76,6 +58,7 @@ function keywordFetch(url){
     fetch(url).then((response) =>{
         return response.json();
     }).then((result) =>{
+        console.log(result.data.length);
         if(result.data.length == 0){
             document.querySelector("main").innerHTML="沒有搜尋到結果";
           }
@@ -125,13 +108,28 @@ function fetchattraction(result){
             
                 allAttr.appendChild(attrTagbg);
                 main.appendChild(allAttr);
+                
             }
     nextPage = result.nextpage;
     isLoading = false;
 }
 
+const options = {
+    root: null,
+    rootMargin: "0px 0px 0px 0px",
+    threshold: 0.7,
+}
+const observer = new IntersectionObserver((entries)=>{
+    if (entries[0].isIntersecting){
+        loadAll();
+        console.log(isLoading)
+    }
+}, options);
+const footer = document.querySelector("#footer");
+observer.observe(footer);
+
 function loadAll(){
-    if (keyword && isLoading ==false){
+    if (keyword && isLoading == false){
         let url=`/api/attractions?page=${nextPage}&keyword=${keyword}`;
         keywordFetch(url);
     }else if(nextPage != null && isLoading==false){

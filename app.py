@@ -4,6 +4,15 @@ import jwt,requests
 from datetime import datetime, timedelta
 from mysql.connector import Error
 from mysql.connector import pooling
+import os
+from dotenv import load_dotenv
+
+load_dotenv('./key.env')
+
+TOKEN_SECRET_KEY = os.getenv("TOKEN_SECRET_KEY")
+MYSQLUSER = os.getenv("MYSQLUSER")
+MYSQLPASSWORD = os.getenv("MYSQLPASSWORD")
+TAPPAY_PARTNER_KEY = os.getenv("TAPPAY_PARTNER_KEY")
 
 app=Flask(
 	__name__,
@@ -12,17 +21,18 @@ app=Flask(
 	)
 app.config["JSON_AS_ASCII"]=False
 app.config["TEMPLATES_AUTO_RELOAD"]=True
-app.config['SECRET_KEY'] = 'M\xe9\x98\x18\x94|\xca\xdf\xadg\xd31'
+app.config["SECRET_KEY"] = "TOKEN_SECRET_KEY"
+app.config["PARTNER_KEY"] = TAPPAY_PARTNER_KEY
 
 connection_pool = pooling.MySQLConnectionPool(
-    pool_name="pynative_pool",
-    pool_size=5,
-    pool_reset_session=True,
-    host="localhost",
-    database="taipeiattractions",
-    user="root",
-    password="123321zz",
-    charset="utf-8"
+    pool_name = "pynative_pool",
+    pool_size = 5,
+    pool_reset_session = True,
+    host = "localhost",
+    database = "taipeiattractions",
+    user = MYSQLUSER,
+    password = MYSQLPASSWORD,
+    charset = "utf-8"
 )
 
 # Pages
@@ -219,7 +229,7 @@ def user_state():
 	connection_object = connection_pool.get_connection()
 	cursor = connection_object.cursor()
 	try:
-		decodedtoken = jwt.decode(get_token, app.config['SECRET_KEY'], algorithms=['HS256'])
+		decodedtoken = jwt.decode(get_token, app.config["SECRET_KEY"], algorithms=['HS256'])
 		token_email = decodedtoken["email"]
 		cursor.execute(("SELECT * FROM member WHERE email = %s"), (token_email, ))
 		userdata = cursor.fetchone()
@@ -266,7 +276,7 @@ def user_login():
 			}, 200)
 			encodetoken = jwt.encode(
 				{"email": data["email"],"exp": datetime.utcnow() + timedelta(days=7)},
-				app.config['SECRET_KEY'],
+				app.config["SECRET_KEY"],
 				algorithm='HS256')
 			response.set_cookie('token', encodetoken, max_age=604800)
 			return response
@@ -297,7 +307,7 @@ def get_bookingdata():
 	connection_object = connection_pool.get_connection()
 	cursor = connection_object.cursor()
 	try:
-		decodedtoken = jwt.decode(get_token, app.config['SECRET_KEY'], algorithms=['HS256'])
+		decodedtoken = jwt.decode(get_token, app.config["SECRET_KEY"], algorithms=['HS256'])
 		sql = "SELECT attractionId, name, address, images, date, time, price FROM booking INNER JOIN attractions ON booking.attractionId = attractions.id"
 		cursor.execute(sql)
 		result = cursor.fetchone()
@@ -342,7 +352,7 @@ def built_booking():
 	connection_object = connection_pool.get_connection()
 	cursor = connection_object.cursor()
 	try:
-		decodedtoken = jwt.decode(get_token, app.config['SECRET_KEY'], algorithms=['HS256'])
+		decodedtoken = jwt.decode(get_token, app.config["SECRET_KEY"], algorithms=['HS256'])
 		try:
 			if (attractionId == ""):
 				return jsonify({
@@ -388,7 +398,6 @@ def built_booking():
 	finally:
 		cursor.close()
 		connection_object.close()
-		print("MySQL connection is /api/booking, methods=POST")
 		
 
 # 刪除目前的預定行程
@@ -399,7 +408,7 @@ def delete_booking():
 	connection_object = connection_pool.get_connection()
 	cursor = connection_object.cursor()
 	try:
-		decodedtoken = jwt.decode(get_token, app.config['SECRET_KEY'], algorithms=['HS256'])
+		decodedtoken = jwt.decode(get_token, app.config["SECRET_KEY"], algorithms=['HS256'])
 		cursor.execute("DELETE FROM booking WHERE id = 1")
 		connection_object.commit()
 		return jsonify({
@@ -422,12 +431,12 @@ def postorder():
 	connection_object = connection_pool.get_connection()
 	cursor = connection_object.cursor()
 	try:
-		decodedtoken = jwt.decode(get_token, app.config['SECRET_KEY'], algorithms=['HS256'])
+		decodedtoken = jwt.decode(get_token, app.config["SECRET_KEY"], algorithms=['HS256'])
 		data = request.get_json()
 
 		order_data = json.dumps({
 			"prime": data["prime"],
-			"partner_key": "partner_60PDKZgTe5l1pacxWdikqvHAlvV8ExWhRKgxiIKagwhNcwc8MyfIoGEy",
+			"partner_key": app.config["PARTNER_KEY"],
 			"merchant_id": "yslsy224_CTBC",
 			"amount": data["order"]["price"],
 			"currency": "TWD",
@@ -442,7 +451,7 @@ def postorder():
     	})
 		headers = {
 			"Content-Type": "application/json",
-			"x-api-key": "partner_60PDKZgTe5l1pacxWdikqvHAlvV8ExWhRKgxiIKagwhNcwc8MyfIoGEy"
+			"x-api-key": app.config["PARTNER_KEY"]
 		}
 		response = requests.post("https://sandbox.tappaysdk.com/tpc/payment/pay-by-prime", data = order_data, headers = headers)
 		print(response.json())
@@ -511,7 +520,7 @@ def getorder(orderNumber):
 	connection_object = connection_pool.get_connection()
 	cursor = connection_object.cursor()
 	try:
-		decodedtoken = jwt.decode(get_token, app.config['SECRET_KEY'], algorithms=['HS256'])
+		decodedtoken = jwt.decode(get_token, app.config["SECRET_KEY"], algorithms=['HS256'])
 		cursor.execute(f"SELECT * FROM payedorder WHERE ordernumber='{orderNumber}'")
 		payed_orderdata = cursor.fetchone()
 		return jsonify({
