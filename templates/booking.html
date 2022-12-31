@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset = "utf-8" name="viewport" content="width=device-width, initial-scale = 1" />
+        <title>台北一日遊</title>
+        <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}"/>
+        <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='css/attraction.css')}}" />
+        <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='css/member.css')}}"/>
+        <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='css/booking.css')}}"/>
+        <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='css/order.css')}}" />
+    </head>
+    <body>
+        <div class="outtoptitle">
+            <div class="toptitle">
+                <div class="theme" onclick="toindex()">台北一日遊</div>
+                <div class="booking">預定行程</div>
+                <div id="login" class="signin_signup">登入/註冊</div>
+                <div id="logout" class="logout">登出</div>
+            </div>
+        </div>
+    <hr style="background-color:#E8E8E8;border: 0;height: 1px;" />
+        <div class="welcomeblock"><div class="welcometext">你好，<span class="membername"></span>，待預定的行程如下：</div></div>
+        <div class="bookcontainor">
+            <div class="bookingblock">
+                <div class="tourimage"></div>
+                <div class="tourdatacontainor">
+                    <div class="tourtitle">台北一日遊：<span class="tourname"></span></div>
+                    </br>
+                    <div class="toursubtitle">日期：<span class="tourdata"></span></div>
+                    <div class="toursubtitle">時間：<span class="tourdata"></span></div>
+                    <div class="toursubtitle">費用：新台幣<span class="tourdata"></span>元</div>
+                    <div class="toursubtitle">地點：<span class="tourdata"></span></div>
+                    <div class="deleteicon"><img src="../img/icon_delete.png"></div>
+                </div>
+            </div>
+            <hr class="hrstyle" /> 
+            <div class="contactblock">
+                <div class="bookingsubtitle">您的聯絡資訊</div>
+                <div class="contactdata">
+                    <div>聯絡姓名：</div>
+                    <input id="name" type="text">
+                </div>
+                <div class="contactdata">
+                    <div>聯絡信箱：</div>
+                    <input id="email" type="text">
+                </div>
+                <div class="contactdata">
+                    <div>手機號碼：</div>
+                    <input id="phone" type="text">
+                </div>
+                <div>
+                    <div class="contactdata">請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。</div>
+                </div>
+            </div>
+            <hr class="hrstyle" />
+            <div class="payingblock">
+                <div class="bookingsubtitle">信用卡付款資訊</div>
+                <div class="carddata">
+                    <div>卡片號碼：</div>
+                    <div class="tpfield" id="card-number"></div>
+                </div>
+                <div class="carddata">
+                    <div>過期時間：</div>
+                    <div class="tpfield" id="card-expiration-date"></div>
+                </div>
+                <div class="carddata">
+                    <div>驗證密碼：</div>
+                    <div class="tpfield" id="card-ccv"></div>
+                </div>
+            </div>
+            <hr class="hrstyle" />
+            <div class="checkpayingblock">
+                <div class="totalpricecontainor">總價：新台幣<span id="orderprice" class="tourdata"></span>元</div>
+                <button class="payingbutton">確認訂購並付款</button>
+            </div>
+        </div>
+
+        <div class="nobooking">
+            <div class="nobookingtext">目前沒有任何待預定的行程</div>
+        </div>
+
+        <footer class="bookingfooter">COPYRIGHT © 2021 台北一日遊</footer>
+    </body>
+    <script src="../js/index.js"></script>
+    <script src="../js/attraction.js"></script>
+    <script src="../js/member.js"></script>
+    <script src="../js/booking.js"></script>
+    <script src="https://js.tappaysdk.com/tpdirect/v5.13.1"></script>
+    <script src="../js/order.js"></script>
+
+</html>

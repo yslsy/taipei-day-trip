@@ -4,6 +4,12 @@
 body {
   width: 100%;
   height: 100%;
+  position: absolute;
+  bottom: 104px; /* footer 高度 */
+  top: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
 }
 .outtoptitle{
   width: 100%;

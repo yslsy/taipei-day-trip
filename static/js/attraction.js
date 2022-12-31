@@ -99,3 +99,48 @@ inputlistArray[1].addEventListener("change",(e)=>{
         document.querySelector(".price").textContent=2500;
     }
 })
+
+// 點擊按鈕預定行程
+const bookbtn = document.querySelector(".bookbtn")
+bookbtn.addEventListener("click", ()=>{
+    fetch("/api/booking",{
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            attractionId: pathId,
+            date: document.getElementById("mydate").value,
+            time: document.querySelector("[name=time]:checked").value,
+            price: document.querySelector(".price").textContent,
+        })
+    }).then((response)=>{
+        return response.json()
+    }).then((result)=>{
+        if (result["ok"]){
+            window.location.href="/booking"
+        }
+        else if(result["message"] === "未登入系統，拒絕存取"){
+            loginModal.style.display = "block"
+        }
+        else if(result["message"] === "未選擇日期"){
+            alert("請選擇日期！")
+        }
+        else{
+            alert(result["message"])
+        }
+    })
+})
+
+// 點選預定行程
+document.querySelector(".booking").addEventListener("click", ()=>{
+    fetch("/api/user/auth", {
+        method:"GET",
+    }).then((response)=>{
+        return response.json()
+    }).then((result)=>{
+        if (result["data"]!=null){
+            window.location.href="/booking"
+        }else{
+            loginModal.style.display = "block"
+        }
+    })
+})
